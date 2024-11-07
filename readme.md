@@ -1,7 +1,7 @@
 ## thorium-win-upgrade
 
 <p align="center">
-    <br> English | <a href="README-CN.md">中文</a>
+    <br> English | <a href="./README-CN.md">中文</a>
 </p>
 
 > A tool to upgrade the Thorium Browser
