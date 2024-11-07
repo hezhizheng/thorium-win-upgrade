@@ -7,13 +7,13 @@ import (
 	"github.com/spf13/viper"
 	"log"
 	"os"
-	"shuax-chrome-upgrade/service"
-	"shuax-chrome-upgrade/service/helper"
+	"thorium-win-upgrade/service"
+	"thorium-win-upgrade/service/helper"
 )
 
-// 1、爬取 https://assets.shuax.com/ 的页面 获取最新版的chrome版本
-//2、与本地chrome当前版本比较，大于当前版本则下载到本地、解压(询问提示)
-//3、覆盖旧版数据，老版本App重命名为App2
+// 1、爬取 github 的页面 获取最新版的chrome版本
+//2、与本地 thorium 当前版本比较，大于当前版本则下载到本地、解压(询问提示)
+//3、覆盖旧版数据，老版本BIN重命名为BIN2
 //4、删除下载的文件
 
 type Config struct {
@@ -50,7 +50,7 @@ func main() {
 	}
 	localVersionName := service.GetLocalVersionName(f)
 
-	//获取shuax最新chrome版本
+	//获取 thorium 最新版本
 	chromeFileName, latestVersionName := service.GetLatestVersionName()
 	// 比较版本号
 	if helper.CompareVersion(latestVersionName, localVersionName) == 1 {

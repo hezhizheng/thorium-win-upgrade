@@ -8,7 +8,7 @@ import (
 	"os"
 	"os/exec"
 	"path"
-	"shuax-chrome-upgrade/service/helper"
+	"thorium-win-upgrade/service/helper"
 )
 
 func DownloadChrome(latestVersionName, localVersionName, chromeFileName string) {

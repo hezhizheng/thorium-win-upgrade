@@ -1,6 +1,6 @@
 ## thorium-win-upgrade
 
-> 一个可以升级 [Thorium](https://shuax.com/project/chrome/)  的工具
+> 一个可以升级 [Thorium](https://thorium.rocks/)  的工具
 
 > [github](https://github.com/hezhizheng/thorium-win-upgrade)
 
@@ -15,9 +15,9 @@
 
 
 ### 使用
-自定义config.json配置文件(shuax chrome 的安装目录)
+自定义config.json配置文件(thorium 的安装目录)
 
-例：假如我的shuax chrome 安装解压目录为
+例：假如我的 thorium 安装解压目录为
 
 ![free-pic](./images/2.png)
 

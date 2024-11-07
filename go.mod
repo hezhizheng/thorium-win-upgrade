@@ -1,4 +1,4 @@
-module shuax-chrome-upgrade
+module thorium-win-upgrade
 
 go 1.15
 
