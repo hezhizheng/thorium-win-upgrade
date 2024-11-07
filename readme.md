@@ -45,23 +45,21 @@ Manual compilation
 go build -ldflags "-s -w" -gcflags="all=-trimpath=${PWD}" -asmflags="all=-trimpath=${PWD}"
 ```
 
-Run Before
+## Run Before
 - Do not change the original directory structure of `thorium`.
 - Ensure that the compiled files are in the same directory as the config.json, 7z.dll, and 7z.exe files.
 - Execute . /thorium-win-upgrade.exe or double-click to launch it and follow the prompts to enter commands to complete the upgrade
 
-Upgrade
+## Upgrade
 
 ![free-pic](./images/4.png)
 ![free-pic](./images/6.png)
 
 
-No upgrade required
+## No upgrade required
 
 ![free-pic](./images/3.png)
 
-windows boot auto-detect (create .bat file)
+## windows boot auto-detect (create .bat file)
 
-[./thorium-win-upgrade.bat](./thorium-win-upgrade.bat)
-
-Just create a shortcut and set it to boot up
+[./thorium-win-upgrade.bat](./thorium-win-upgrade.bat) Just create a shortcut and set it to boot up
