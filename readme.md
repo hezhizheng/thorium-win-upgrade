@@ -1,64 +1,67 @@
 ## thorium-win-upgrade
 
-> 一个可以升级 [Thorium](https://thorium.rocks/)  的工具
+<p align="center">
+    <br> English | <a href="README-CN.md">中文</a>
+</p>
+
+> A tool to upgrade the Thorium Browser
 
 > [github](https://github.com/hezhizheng/thorium-win-upgrade)
 
-### 功能
-- 简单交互式操作
-- 自动检测最新的 `Thorium` 版本
-- 用户决定是否进行升级操作(自动下载、解压、重命名文件等)
-- windows下 配合.bat文件 实现开机自动检测更新功能
+### Features
+- Simple and interactive operation
+- Automatically detects the latest Thorium version
+- Upgrade operations (automatic download, unzipping, renaming of files, etc.) at the user's discretion
+- Windows with the .bat file to realize the boot automatically detect the update function
 
-### 流程
+### Workflows
 ![free-pic](./images/1.png)
 
 
-### 使用
-自定义config.json配置文件(thorium 的安装目录)
+### Used
+Custom config.json configuration file (thorium installation directory)
 
-例：假如我的 thorium 安装解压目录为
+Example: If my thorium installation is unpacked in the directory
 
 ![free-pic](./images/2.png)
 
-那么 local_chrome_path 就定义为 `D:\test1107\thorium`。如下：
+Then local_chrome_path is defined as D:\test1107\thorium. as follows:
 ```
-# 参数说明
+# Parameter description
 {
   "app": {
     "local_chrome_path": "D:\\test1107\\thorium"
     ,"proxy_url": ""
   }
 }
-- proxy_url： 下载代理，检查最新版本跟下载可能需要翻墙，如程序有错误抛出，请尝试使用代理(http://127.0.0.1:7890)解决(不使用代理则无需配置该项，或者设置为空字符串)。
-- local_chrome_path：本地 thorium 的安装路径
+- proxy_url： Download the proxy. Check the latest version and download. You may need to bypass the firewall. If the program throws an error, please try to use the proxy (http://127.0.0.1:7890) to solve the problem. (If you do not use a proxy, you do not need to configure this item, or set it to empty. string).
+- local_chrome_path：Local thorium installation path
 ```
 
-编译 (提供编译好的文件 thorium-win-upgrade.7z
-下载 [releases](https://github.com/hezhizheng/thorium-win-upgrade/releases) )
+Compile (provides compiled file thorium-win-upgrade.7z download [releases](https://github.com/hezhizheng/thorium-win-upgrade/releases) )
 
-手动编译
+Manual compilation
 ```
 go build -ldflags "-s -w" -gcflags="all=-trimpath=${PWD}" -asmflags="all=-trimpath=${PWD}"
 ```
 
-运行
-- 请不要随意更改`thorium`原本的目录结构
-- 保证编译的文件与 config.json、7z.dll、7z.exe 文件 在同级目录
-- 执行 ./thorium-win-upgrade.exe 或者双击启动，根据提示输入指令完成升级
+Run Before
+- Do not change the original directory structure of `thorium`.
+- Ensure that the compiled files are in the same directory as the config.json, 7z.dll, and 7z.exe files.
+- Execute . /thorium-win-upgrade.exe or double-click to launch it and follow the prompts to enter commands to complete the upgrade
 
-升级
+Upgrade
 
 ![free-pic](./images/4.png)
 ![free-pic](./images/6.png)
 
 
-无需升级
+No upgrade required
 
 ![free-pic](./images/3.png)
 
-windows 开机自动检测(创建.bat文件)
+windows boot auto-detect (create .bat file)
 
 [./thorium-win-upgrade.bat](./thorium-win-upgrade.bat)
 
-创建快捷方式，设定开机自启即可
+Just create a shortcut and set it to boot up
