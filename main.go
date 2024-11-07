@@ -7,6 +7,7 @@ import (
 	"github.com/spf13/viper"
 	"log"
 	"os"
+	"os/exec"
 	"thorium-win-upgrade/service"
 	"thorium-win-upgrade/service/helper"
 )
@@ -70,6 +71,13 @@ func main() {
 		fmt.Printf("输入了：" + line + "\n")
 		if line != "1" {
 			break
+		}
+
+		// 关闭 thorium
+		_, e1 := exec.Command("taskkill", "/F", "/IM", "thorium.exe").Output()
+		if e1 != nil {
+			fmt.Println("关闭 thorium 失败")
+			panic(e1)
 		}
 
 		fmt.Printf("升级中，请等待，此过程中请不要做任何输入。\n")
