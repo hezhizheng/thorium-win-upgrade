@@ -23,13 +23,13 @@ func DownloadChrome(latestVersionName, localVersionName, chromeFileName string) 
 		panic("版本异常！")
 	}
 
-	url := ShuaxHost + chromeFileName
+	url := DownloadHost + chromeFileName
 	path := viper.Get(`app.local_chrome_path`)
 
-	filename := path.(string) + "\\" + chromeFileName
+	filename := path.(string) + "\\" + latestVersionName + ".zip"
 
 	if needDownload && !fileExists(filename) {
-		fmt.Println("开始下载........")
+		fmt.Println("开始下载 " + url + " ........")
 		err := DownloadFile(filename, url)
 
 		if err != nil {
@@ -43,12 +43,12 @@ func DownloadChrome(latestVersionName, localVersionName, chromeFileName string) 
 	if fileExists(filename) {
 
 		// 先删除旧版本升级遗留的文件夹
-		os.RemoveAll(path.(string) + "\\" + "App2")
-		os.RemoveAll(path.(string) + "\\" + "chrome")
+		os.RemoveAll(path.(string) + "\\" + "BIN2")
+		os.RemoveAll(path.(string) + "\\" + "thorium_tmp")
 
 		fmt.Println("解压文件中........")
 
-		_, e1 := exec.Command("./7z.exe", "x", filename, "-o"+path.(string)).Output()
+		_, e1 := exec.Command("./7z.exe", "x", filename, "-o"+path.(string)+"\\"+"thorium_tmp").Output()
 		if e1 != nil {
 			fmt.Println("解压文件失败")
 			panic(e1)
@@ -56,14 +56,14 @@ func DownloadChrome(latestVersionName, localVersionName, chromeFileName string) 
 
 		fmt.Println("解压完成。")
 
-		renameErr := os.Rename(path.(string)+"\\"+"App", path.(string)+"\\"+"App2")
+		renameErr := os.Rename(path.(string)+"\\"+"BIN", path.(string)+"\\"+"BIN2")
 
 		if renameErr != nil {
 			fmt.Println("重命名文件失败")
 			panic(renameErr)
 		}
 
-		e2 := copyDir(path.(string)+"\\"+"chrome\\App", path.(string)+"\\"+"App")
+		e2 := copyDir(path.(string)+"\\"+"thorium_tmp\\BIN", path.(string)+"\\"+"BIN")
 
 		if e2 != nil {
 			fmt.Println("复制目录失败")
@@ -77,11 +77,11 @@ func DownloadChrome(latestVersionName, localVersionName, chromeFileName string) 
 
 }
 
-func DeleteDownloadFile(chromeFileName string) {
+func DeleteDownloadFile(latestVersionName string) {
 	localChromePath := viper.Get(`app.local_chrome_path`).(string)
 	// os.RemoveAll(localChromePath + "\\" + "App2")
-	os.RemoveAll(localChromePath + "\\" + "chrome")
-	os.RemoveAll(localChromePath + "\\" + chromeFileName)
+	os.RemoveAll(localChromePath + "\\" + "thorium_tmp")
+	os.RemoveAll(localChromePath + "\\" + latestVersionName + ".zip")
 }
 
 func fileForCopyDir(src, dst string) error {
