@@ -8,6 +8,7 @@ import (
 	"log"
 	"os"
 	"os/exec"
+	"thorium-win-upgrade/language"
 	"thorium-win-upgrade/service"
 	"thorium-win-upgrade/service/helper"
 )
@@ -19,6 +20,7 @@ import (
 
 type Config struct {
 	LocalChromePath string `json:"local_chrome_path"`
+	Lang            string `json:"lang"`
 }
 
 func init() {
@@ -35,15 +37,15 @@ func main() {
 	configStr := viper.Get(`app`)
 	jsonStr, e := json.Marshal(configStr)
 	if e != nil {
-		log.Fatal("配置文件加载有误，请检查！", e)
+		log.Fatal("The configuration file was loaded incorrectly, please check!", e)
 	}
 	json.Unmarshal(jsonStr, &_config)
 
-	fmt.Printf("欢迎使用 thorium-win-upgrade 工具\n\n")
+	fmt.Printf(language.LanguageMap[_config.Lang]["welcome"] + "\n\n")
 	fmt.Printf("github：https://github.com/hezhizheng/thorium-win-upgrade\n\n")
-	fmt.Printf("当前定义的本地chrome的安装路径为：" + _config.LocalChromePath + "\n\n")
-	fmt.Printf("请根据提示输入相关指令进行操作\n\n")
-	fmt.Printf("检查更新中......\n\n")
+	fmt.Printf(language.LanguageMap[_config.Lang]["local_path"] + _config.LocalChromePath + "\n\n")
+	fmt.Printf(language.LanguageMap[_config.Lang]["tips"] + "\n\n")
+	fmt.Printf(language.LanguageMap[_config.Lang]["check_update"] + "......\n\n")
 
 	// 获取本地chrome版本
 	f := &service.FileInfo{
@@ -55,11 +57,11 @@ func main() {
 	chromeFileName, latestVersionName := service.GetLatestVersionName()
 	// 比较版本号
 	if helper.CompareVersion(latestVersionName, localVersionName) == 1 {
-		fmt.Printf("当前本地 Thorium 的版本为：" + localVersionName + "，" + "最新 Thorium 版本为：" + latestVersionName + " 是否进行升级？1：是 2：否\n")
-		fmt.Printf("提示：升级前请确保浏览器已处于退出状态！！！\n")
+		fmt.Printf(language.LanguageMap[_config.Lang]["local_thorium_version"] + localVersionName + "，" + language.LanguageMap[_config.Lang]["last_thorium_version"] + latestVersionName + " " + language.LanguageMap[_config.Lang]["is_update"] + " " + language.LanguageMap[_config.Lang]["y_or_n"] + "\n")
+		fmt.Printf(language.LanguageMap[_config.Lang]["upgrade_tip"] + "！！！\n")
 	} else {
-		fmt.Printf("当前本地 Thorium 的版本为：" + localVersionName + "，" + "最新 Thorium 版本为：" + latestVersionName + " 无需升级\n")
-		fmt.Printf("输入任意键退出\n")
+		fmt.Printf(language.LanguageMap[_config.Lang]["local_thorium_version"] + localVersionName + "，" + language.LanguageMap[_config.Lang]["last_thorium_version"] + latestVersionName + " " + language.LanguageMap[_config.Lang]["no_need_update"] + "\n")
+		fmt.Printf(language.LanguageMap[_config.Lang]["input_any_exit"] + "\n")
 		fmt.Scanln(&exit)
 		return
 	}
@@ -68,7 +70,7 @@ func main() {
 
 	for input.Scan() {
 		line := input.Text()
-		fmt.Printf("输入了：" + line + "\n")
+		fmt.Printf(language.LanguageMap[_config.Lang]["input"] + "：" + line + "\n")
 		if line != "1" {
 			break
 		}
@@ -76,29 +78,29 @@ func main() {
 		// 关闭 thorium
 		_, e1 := exec.Command("taskkill", "/F", "/IM", "thorium.exe").Output()
 		if e1 != nil {
-			fmt.Println("关闭 thorium 失败")
-			panic(e1)
+			fmt.Println("exit thorium fail")
+			//panic(e1)
 		}
 
-		fmt.Printf("升级中，请等待，此过程中请不要做任何输入。\n")
+		fmt.Printf(language.LanguageMap[_config.Lang]["update_ing"] + "\n")
 		service.DownloadChrome(latestVersionName, localVersionName, chromeFileName)
-		fmt.Printf("升级成功，是否删除下载/解压的文件？（建议先检查是否升级成功在执行此操作！！！）1：是 2：否\n")
+		fmt.Printf(language.LanguageMap[_config.Lang]["update_success"] + " " + language.LanguageMap[_config.Lang]["y_or_n"] + "\n")
 
 		var (
 			isDelete string
 		)
 		fmt.Scanln(&isDelete)
-		fmt.Printf("输入了：" + isDelete + "\n")
+		fmt.Printf(language.LanguageMap[_config.Lang]["input"] + "：" + isDelete + "\n")
 		if isDelete != "1" {
 			break
 		}
-		fmt.Printf("文件删除中......\n")
+		fmt.Printf(language.LanguageMap[_config.Lang]["file_delete_ing"] + "......\n")
 		service.DeleteDownloadFile(latestVersionName)
-		fmt.Printf("删除完成......\n")
+		fmt.Printf(language.LanguageMap[_config.Lang]["file_deleted"] + "......\n")
 		break
 	}
 
-	fmt.Printf("输入任意键退出\n")
+	fmt.Printf(language.LanguageMap[_config.Lang]["input_any_exit"] + "\n")
 	fmt.Scanln(&exit)
 	return
 }

@@ -8,11 +8,13 @@ import (
 	"os"
 	"os/exec"
 	"path"
+	"thorium-win-upgrade/language"
 	"thorium-win-upgrade/service/helper"
 )
 
 func DownloadChrome(latestVersionName, localVersionName, chromeFileName string) {
 
+	lang := viper.GetString(`app.lang`)
 	needDownload := false
 
 	if latestVersionName != "" && localVersionName != "" {
@@ -20,7 +22,7 @@ func DownloadChrome(latestVersionName, localVersionName, chromeFileName string) 
 			needDownload = true
 		}
 	} else {
-		panic("版本异常！")
+		panic(language.LanguageMap[lang]["version_err"])
 	}
 
 	url := DownloadHost + chromeFileName
@@ -29,15 +31,15 @@ func DownloadChrome(latestVersionName, localVersionName, chromeFileName string) 
 	filename := path.(string) + "\\" + latestVersionName + ".zip"
 
 	if needDownload && !fileExists(filename) {
-		fmt.Println("开始下载 " + url + " ........")
+		fmt.Println(language.LanguageMap[lang]["download_start"] + " " + url + " ........")
 		err := DownloadFile(filename, url)
 
 		if err != nil {
-			fmt.Println("下载文件" + url + "失败")
+			fmt.Println(language.LanguageMap[lang]["download_file"] + url + language.LanguageMap[lang]["fail"])
 			panic(err)
 		}
 
-		fmt.Println("下载完成。")
+		fmt.Println(language.LanguageMap[lang]["download_done"])
 	}
 
 	if fileExists(filename) {
@@ -46,34 +48,34 @@ func DownloadChrome(latestVersionName, localVersionName, chromeFileName string) 
 		os.RemoveAll(path.(string) + "\\" + "BIN2")
 		os.RemoveAll(path.(string) + "\\" + "thorium_tmp")
 
-		fmt.Println("解压文件中........")
+		fmt.Println(language.LanguageMap[lang]["unzip_file"] + "........")
 
 		_, e1 := exec.Command("./7z.exe", "x", filename, "-o"+path.(string)+"\\"+"thorium_tmp").Output()
 		if e1 != nil {
-			fmt.Println("解压文件失败")
+			fmt.Println(language.LanguageMap[lang]["unzip_file_fail"])
 			panic(e1)
 		}
 
-		fmt.Println("解压完成。")
+		fmt.Println(language.LanguageMap[lang]["unzip_done"])
 
 		renameErr := os.Rename(path.(string)+"\\"+"BIN", path.(string)+"\\"+"BIN2")
 
 		if renameErr != nil {
-			fmt.Println("重命名文件失败")
+			fmt.Println(language.LanguageMap[lang]["rename_file_name_fail"])
 			panic(renameErr)
 		}
 
 		e2 := copyDir(path.(string)+"\\"+"thorium_tmp\\BIN", path.(string)+"\\"+"BIN")
 
 		if e2 != nil {
-			fmt.Println("复制目录失败")
+			fmt.Println(language.LanguageMap[lang]["copy_dir_fail"])
 			panic(e2)
 		}
 
 		return
 	}
 
-	panic("升级失败")
+	panic(language.LanguageMap[lang]["update_fail"])
 
 }
 

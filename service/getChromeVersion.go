@@ -23,7 +23,7 @@ func (f *FileInfo) GetLocalVersion() (err error) {
 	rd, e := ioutil.ReadDir(f.FileDir)
 
 	if e != nil {
-		log.Println("目录读取失败", err, f.FileDir)
+		log.Println("Load Dir Fail", err, f.FileDir)
 		return nil
 	}
 
@@ -51,7 +51,7 @@ func GetLatestVersionName() (string, string) {
 	})
 
 	c.OnRequest(func(r *colly.Request) {
-		log.Println("请求", r.URL, "...")
+		log.Println("Request", r.URL, "...")
 	})
 
 	c.OnResponse(func(resp *colly.Response) {
@@ -81,7 +81,7 @@ func GetLatestVersionName() (string, string) {
 	visitError := c.Visit(CheckoutVersionApi)
 
 	if visitError != nil {
-		log.Println("访问" + CheckoutVersionApi + "失败")
+		log.Println("Request" + CheckoutVersionApi + "Fail")
 		panic(visitError)
 	}
 	c.Wait()
@@ -107,7 +107,7 @@ func GetLatestVersionNameNext(tag string) (string, string) {
 	})
 
 	c.OnRequest(func(r *colly.Request) {
-		log.Println("请求", r.URL, "...")
+		log.Println("Request", r.URL, "...")
 	})
 
 	cVersion := ""
@@ -140,7 +140,7 @@ func GetLatestVersionNameNext(tag string) (string, string) {
 	visitError := c.Visit(vURL)
 
 	if visitError != nil {
-		log.Println("访问" + vURL + "失败")
+		log.Println("Request" + vURL + "Fail")
 		panic(visitError)
 	}
 	c.Wait()

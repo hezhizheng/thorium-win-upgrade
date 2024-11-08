@@ -1,4 +1,4 @@
-## thorium-win-upgrade
+<h1 align="center">thorium-win-upgrade</h1>
 
 <p align="center">
     <br> English | <a href="./README-CN.md">中文</a>
@@ -8,22 +8,23 @@
 
 > [github](https://github.com/hezhizheng/thorium-win-upgrade)
 
-### Features
+## Features
 - Simple and interactive operation
 - Automatically detects the latest Thorium version
 - Upgrade operations (automatic download, unzipping, renaming of files, etc.) at the user's discretion
 - Windows with the .bat file to realize the boot automatically detect the update function
+- Supports both Chinese and English
 
-### Workflows
+## Workflows
 ![free-pic](./images/1.png)
 
 
-### Used
+## Usage
 Custom config.json configuration file (thorium installation directory)
 
 Example: If my thorium installation is unpacked in the directory
 
-![free-pic](./images/2.png)
+![free-pic](./images/22.png)
 
 Then local_chrome_path is defined as D:\test1107\thorium. as follows:
 ```
@@ -36,11 +37,12 @@ Then local_chrome_path is defined as D:\test1107\thorium. as follows:
 }
 - proxy_url： Download the proxy. Check the latest version and download. You may need to bypass the firewall. If the program throws an error, please try to use the proxy (http://127.0.0.1:7890) to solve the problem. (If you do not use a proxy, you do not need to configure this item, or set it to empty. string).
 - local_chrome_path：Local thorium installation path
+- lang：Supported languages zh-CN or en-US
 ```
 
 Compile (provides compiled file thorium-win-upgrade.7z download [releases](https://github.com/hezhizheng/thorium-win-upgrade/releases) )
 
-Manual compilation
+Build
 ```
 go build -ldflags "-s -w" -gcflags="all=-trimpath=${PWD}" -asmflags="all=-trimpath=${PWD}"
 ```
@@ -52,13 +54,13 @@ go build -ldflags "-s -w" -gcflags="all=-trimpath=${PWD}" -asmflags="all=-trimpa
 
 ## Upgrade
 
-![free-pic](./images/4.png)
-![free-pic](./images/6.png)
+![free-pic](./images/en33.png)
+![free-pic](./images/44.png)
 
 
 ## No upgrade required
 
-![free-pic](./images/3.png)
+![free-pic](./images/en55.png)
 
 ## windows boot auto-detect (create .bat file)
 

@@ -1,6 +1,7 @@
 {
   "app": {
     "local_chrome_path": "D:\\test1107\\thorium"
-    ,"proxy_url": ""
+    ,"proxy_url": "http://127.0.0.1:7890"
+    ,"lang": "en-US"
   }
 }
