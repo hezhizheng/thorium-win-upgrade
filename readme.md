@@ -33,6 +33,7 @@ Then local_chrome_path is defined as D:\test1107\thorium. as follows:
   "app": {
     "local_chrome_path": "D:\\test1107\\thorium"
     ,"proxy_url": ""
+    ,"lang": "en-US"
   }
 }
 - proxy_url： Download the proxy. Check the latest version and download. You may need to bypass the firewall. If the program throws an error, please try to use the proxy (http://127.0.0.1:7890) to solve the problem. (If you do not use a proxy, you do not need to configure this item, or set it to empty. string).
