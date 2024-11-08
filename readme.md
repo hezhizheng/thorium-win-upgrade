@@ -4,7 +4,7 @@
     <br> English | <a href="./README-CN.md">中文</a>
 </p>
 
-> A tool to upgrade the Thorium Browser
+> A tool to upgrade the [Thorium Browser](https://thorium.rocks/) 
 
 > [github](https://github.com/hezhizheng/thorium-win-upgrade)
 

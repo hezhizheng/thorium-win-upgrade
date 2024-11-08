@@ -1,2 +1,2 @@
-:直接定义exe的绝对路径
+:'Define the absolute path of the exe directly'
 D:\xxxpath\thorium-win-upgrade.exe

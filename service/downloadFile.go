@@ -11,8 +11,6 @@ import (
 	"strings"
 )
 
-const httpProxyUrl = "http://127.0.0.1:7890"
-
 // @link https://studygolang.com/articles/26441
 type writeCounter struct {
 	Total uint64
@@ -41,7 +39,7 @@ func DownloadFile(filepath string, furl string) error {
 	var httpclient = http.Client{}
 
 	if proxyUrl != "" {
-		ProxyURL, _ := url.Parse(httpProxyUrl)
+		ProxyURL, _ := url.Parse(proxyUrl)
 		httpclient = http.Client{
 			Transport: &http.Transport{
 				Proxy: http.ProxyURL(ProxyURL),
