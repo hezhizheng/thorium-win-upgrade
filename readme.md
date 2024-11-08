@@ -12,8 +12,8 @@
 - Simple and interactive operation
 - Automatically detects the latest Thorium version
 - Upgrade operations (automatic download, unzipping, renaming of files, etc.) at the user's discretion
-- Windows with the .bat file to realize the boot automatically detect the update function
 - Supports both Chinese and English
+- Windows with the .bat file to realize the boot automatically detect the update function
 
 ## Workflows
 ![free-pic](./images/1.png)
@@ -42,7 +42,7 @@ Then local_chrome_path is defined as D:\test1107\thorium. as follows:
 
 Compile (provides compiled file thorium-win-upgrade.7z download [releases](https://github.com/hezhizheng/thorium-win-upgrade/releases) )
 
-Build
+## Build
 ```
 go build -ldflags "-s -w" -gcflags="all=-trimpath=${PWD}" -asmflags="all=-trimpath=${PWD}"
 ```
