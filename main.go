@@ -53,6 +53,10 @@ func main() {
 	}
 	localVersionName := service.GetLocalVersionName(f)
 
+	if localVersionName == "" {
+		fmt.Scanln(&exit)
+		return
+	}
 	//获取 thorium 最新版本
 	chromeFileName, latestVersionName := service.GetLatestVersionName()
 	// 比较版本号
@@ -79,7 +83,7 @@ func main() {
 		_, e1 := exec.Command("taskkill", "/F", "/IM", "thorium.exe").Output()
 		if e1 != nil {
 			fmt.Println("exit thorium fail")
-			//panic(e1)
+			break
 		}
 
 		fmt.Printf(language.LanguageMap[_config.Lang]["update_ing"] + "\n")
