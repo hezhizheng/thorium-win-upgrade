@@ -37,26 +37,24 @@
 - lang：支持语言 zh-CN or en-US
 ```
 
-编译 (提供编译好的文件 thorium-win-upgrade.7z
-下载 [releases](https://github.com/hezhizheng/thorium-win-upgrade/releases) )
-
-手动编译
+## 手动编译
+编译 (提供编译好的文件 thorium-win-upgrade.7z 下载 [releases](https://github.com/hezhizheng/thorium-win-upgrade/releases) )
 ```
 go build -ldflags "-s -w" -gcflags="all=-trimpath=${PWD}" -asmflags="all=-trimpath=${PWD}"
 ```
 
-运行
+## 运行
 - 请不要随意更改`thorium`原本的目录结构
 - 保证编译的文件与 config.json、7z.dll、7z.exe 文件 在同级目录
 - 执行 ./thorium-win-upgrade.exe 或者双击启动，根据提示输入指令完成升级
 
-升级
+## 升级
 
 ![free-pic](./images/33.png)
 
 ![free-pic](./images/44.png)
 
-无需升级
+## 无需升级
 
 ![free-pic](./images/55.png)
 

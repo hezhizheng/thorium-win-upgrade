@@ -1,7 +1,7 @@
 <h1 align="center">thorium-win-upgrade</h1>
 
 <p align="center">
-    <br> English | <a href="./README-CN.md">中文</a>
+    <br> English | <a href="./README-CN.md">简体中文</a>
 </p>
 
 > A tool to upgrade the [Thorium Browser](https://thorium.rocks/) 
@@ -41,9 +41,8 @@ Then local_chrome_path is defined as D:\test1107\thorium. as follows:
 - lang：Supported languages zh-CN or en-US
 ```
 
-Compile (provides compiled file thorium-win-upgrade.7z download [releases](https://github.com/hezhizheng/thorium-win-upgrade/releases) )
-
 ## Build
+Compile (provides compiled file thorium-win-upgrade.7z download [releases](https://github.com/hezhizheng/thorium-win-upgrade/releases) )
 ```
 go build -ldflags "-s -w" -gcflags="all=-trimpath=${PWD}" -asmflags="all=-trimpath=${PWD}"
 ```
