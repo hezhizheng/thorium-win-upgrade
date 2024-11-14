@@ -49,7 +49,7 @@ go build -ldflags "-s -w" -gcflags="all=-trimpath=${PWD}" -asmflags="all=-trimpa
 
 ## Run Before
 - Do not change the original directory structure of `thorium`.
-- Ensure that the compiled files are in the same directory as the config.json, 7z.dll, and 7z.exe files.
+- Ensure that the compiled files are in the same directory as the config.json files.
 - Execute . /thorium-win-upgrade.exe or double-click to launch it and follow the prompts to enter commands to complete the upgrade
 
 ## Upgrade

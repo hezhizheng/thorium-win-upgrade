@@ -45,7 +45,7 @@ go build -ldflags "-s -w" -gcflags="all=-trimpath=${PWD}" -asmflags="all=-trimpa
 
 ## 运行
 - 请不要随意更改`thorium`原本的目录结构
-- 保证编译的文件与 config.json、7z.dll、7z.exe 文件 在同级目录
+- 保证编译的文件与 config.json 文件 在同级目录
 - 执行 ./thorium-win-upgrade.exe 或者双击启动，根据提示输入指令完成升级
 
 ## 升级
