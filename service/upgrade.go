@@ -6,7 +6,6 @@ import (
 	"io"
 	"io/ioutil"
 	"os"
-	"os/exec"
 	"path"
 	"thorium-win-upgrade/language"
 	"thorium-win-upgrade/service/helper"
@@ -50,10 +49,16 @@ func DownloadChrome(latestVersionName, localVersionName, chromeFileName string) 
 
 		fmt.Println(language.LanguageMap[lang]["unzip_file"] + "........")
 
-		_, e1 := exec.Command("./7z.exe", "x", filename, "-o"+path.(string)+"\\"+"thorium_tmp").Output()
-		if e1 != nil {
+		//_, e1 := exec.Command("./7z.exe", "x", filename, "-o"+path.(string)+"\\"+"thorium_tmp").Output()
+		//if e1 != nil {
+		//	fmt.Println(language.LanguageMap[lang]["unzip_file_fail"])
+		//	panic(e1)
+		//}
+
+		unzipErr := helper.Unzip(filename, path.(string)+"\\"+"thorium_tmp")
+		if unzipErr != nil {
 			fmt.Println(language.LanguageMap[lang]["unzip_file_fail"])
-			panic(e1)
+			panic(unzipErr)
 		}
 
 		fmt.Println(language.LanguageMap[lang]["unzip_done"])

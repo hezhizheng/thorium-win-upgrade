@@ -1,6 +1,10 @@
 package helper
 
 import (
+	"archive/zip"
+	"io"
+	"os"
+	"path/filepath"
 	"strconv"
 	"strings"
 )
@@ -29,4 +33,47 @@ func CompareVersion(version1 string, version2 string) int {
 		}
 	}
 	return 0
+}
+
+// Unzip 解压ZIP文件到指定目录
+func Unzip(zipPath, destDir string) error {
+	// 打开ZIP文件
+	r, err := zip.OpenReader(zipPath)
+	if err != nil {
+		return err
+	}
+	defer r.Close()
+
+	// 遍历ZIP文件中的文件
+	for _, f := range r.File {
+		rc, err := f.Open()
+		if err != nil {
+			return err
+		}
+		defer rc.Close()
+
+		// 构建解压后的文件路径
+		path := filepath.Join(destDir, f.Name)
+
+		// 如果是目录，则创建目录
+		if f.FileInfo().IsDir() {
+			os.MkdirAll(path, f.Mode())
+		} else {
+			// 创建文件
+			os.MkdirAll(filepath.Dir(path), f.Mode())
+			of, err := os.OpenFile(path, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, f.Mode())
+			if err != nil {
+				return err
+			}
+			defer of.Close()
+
+			// 将内容写入文件
+			_, err = io.Copy(of, rc)
+			if err != nil {
+				return err
+			}
+		}
+	}
+
+	return nil
 }
