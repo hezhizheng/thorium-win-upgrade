@@ -8,6 +8,7 @@ import (
 	"log"
 	"os"
 	"os/exec"
+	"strconv"
 	"thorium-win-upgrade/language"
 	"thorium-win-upgrade/service"
 	"thorium-win-upgrade/service/helper"
@@ -82,8 +83,33 @@ func main() {
 		// 关闭 thorium
 		_, e1 := exec.Command("taskkill", "/F", "/IM", "thorium.exe").Output()
 		if e1 != nil {
-			fmt.Println("exit thorium fail")
-			break
+			//fmt.Println("exit thorium fail")
+		}
+
+		log.Println(13213, service.DownloadableVersion)
+
+		fmt.Printf("Downloadable version ..." + "\n")
+		//c := make(map[int]string)
+		for _, m := range service.DownloadableVersion {
+			for key, value := range m {
+				fmt.Println(key, ":", value)
+			}
+		}
+
+		var (
+			selectVersion string
+		)
+		fmt.Printf("请选择要下载的版本，输入对应的数字即可")
+
+		fmt.Scanln(&selectVersion)
+		fmt.Printf(language.LanguageMap[_config.Lang]["input"] + "：" + selectVersion + "\n")
+		for _, m := range service.DownloadableVersion {
+			intSelectVersion, _ := strconv.Atoi(selectVersion)
+			value, exists := m[intSelectVersion]
+			if exists {
+				chromeFileName = value
+				break
+			}
 		}
 
 		fmt.Printf(language.LanguageMap[_config.Lang]["update_ing"] + "\n")

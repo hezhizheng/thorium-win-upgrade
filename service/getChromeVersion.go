@@ -18,6 +18,8 @@ type FileInfo struct {
 	Version string
 }
 
+var DownloadableVersion []map[int]string
+
 // 获取版本
 func (f *FileInfo) GetLocalVersion() (err error) {
 	rd, e := ioutil.ReadDir(f.FileDir)
@@ -116,6 +118,25 @@ func GetLatestVersionNameNext(tag string) (string, string) {
 		//log.Println(string(resp.Body))
 	})
 
+	versionType := viper.Get(`app.version_type`)
+	aIndex := 1
+	log.Println("Downloadable version...")
+	c.OnHTML("a", func(e *colly.HTMLElement) {
+		// 获取 <a> 标签的 href 属性
+		href := e.Attr("href")
+		if strings.Contains(href, ".zip") && !strings.Contains(href, "tag") && !strings.Contains(href, "templates") {
+			log.Println(href)
+			myMap := map[int]string{
+				aIndex: href,
+			}
+			DownloadableVersion = append(DownloadableVersion, myMap)
+			aIndex++
+		}
+		if strings.Contains(href, versionType.(string)) && strings.Contains(href, ".zip") {
+			fileName = href
+		}
+	})
+
 	retryCount := 0
 	c.OnError(func(res *colly.Response, err error) {
 		log.Println("Something went wrong:", err)
@@ -124,10 +145,6 @@ func GetLatestVersionNameNext(tag string) (string, string) {
 			_retryErr := res.Request.Retry()
 			log.Println("retry wrong:", _retryErr)
 		}
-	})
-
-	c.OnXML(`/html/body/div/ul/li[1]/div[1]/a`, func(element *colly.XMLElement) {
-		fileName = element.Attr("href")
 	})
 
 	proxyUrl := viper.GetString(`app.proxy_url`)
@@ -144,6 +161,11 @@ func GetLatestVersionNameNext(tag string) (string, string) {
 		panic(visitError)
 	}
 	c.Wait()
+
+	if fileName == "" {
+		// 没有找到对应版本，请确认 version_type 是否设置正确
+		panic("No corresponding version found, please confirm whether version_type is set correctly.")
+	}
 
 	cVersion = strings.Split(tag, "M")[1]
 	return fileName, cVersion

@@ -5,6 +5,7 @@ import (
 	"github.com/spf13/viper"
 	"io"
 	"io/ioutil"
+	"log"
 	"os"
 	"path"
 	"thorium-win-upgrade/language"
@@ -25,6 +26,8 @@ func DownloadChrome(latestVersionName, localVersionName, chromeFileName string) 
 	}
 
 	url := DownloadHost + chromeFileName
+	log.Println(url)
+	return
 	path := viper.Get(`app.local_chrome_path`)
 
 	filename := path.(string) + "\\" + latestVersionName + ".zip"
