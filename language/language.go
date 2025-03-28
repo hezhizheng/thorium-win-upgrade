@@ -29,6 +29,8 @@ var LanguageMap = map[string]map[string]string{
 		"copy_dir_fail":         "Failed to copy directory",
 		"update_fail":           "Upgrade failed",
 		"fail":                  "Fail",
+		"select_version":        "Please select the version you wish to download and enter the corresponding number",
+		"not_found_version":     "No corresponding version found, please confirm if the selection is correct",
 	},
 	"zh-CN": {
 		"welcome":               "欢迎使用 thorium-win-upgrade 工具",
@@ -58,5 +60,7 @@ var LanguageMap = map[string]map[string]string{
 		"copy_dir_fail":         "复制目录失败",
 		"update_fail":           "升级失败",
 		"fail":                  "失败",
+		"select_version":        "请选择要下载的版本，输入对应的数字即可",
+		"not_found_version":     "找不到对应版本，请确认选择是否正确",
 	},
 }

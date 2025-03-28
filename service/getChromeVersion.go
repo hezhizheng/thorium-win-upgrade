@@ -118,22 +118,18 @@ func GetLatestVersionNameNext(tag string) (string, string) {
 		//log.Println(string(resp.Body))
 	})
 
-	versionType := viper.Get(`app.version_type`)
 	aIndex := 1
 	log.Println("Downloadable version...")
 	c.OnHTML("a", func(e *colly.HTMLElement) {
 		// 获取 <a> 标签的 href 属性
 		href := e.Attr("href")
 		if strings.Contains(href, ".zip") && !strings.Contains(href, "tag") && !strings.Contains(href, "templates") {
-			log.Println(href)
+			//log.Println(href)
 			myMap := map[int]string{
 				aIndex: href,
 			}
 			DownloadableVersion = append(DownloadableVersion, myMap)
 			aIndex++
-		}
-		if strings.Contains(href, versionType.(string)) && strings.Contains(href, ".zip") {
-			fileName = href
 		}
 	})
 
@@ -161,11 +157,6 @@ func GetLatestVersionNameNext(tag string) (string, string) {
 		panic(visitError)
 	}
 	c.Wait()
-
-	if fileName == "" {
-		// 没有找到对应版本，请确认 version_type 是否设置正确
-		panic("No corresponding version found, please confirm whether version_type is set correctly.")
-	}
 
 	cVersion = strings.Split(tag, "M")[1]
 	return fileName, cVersion

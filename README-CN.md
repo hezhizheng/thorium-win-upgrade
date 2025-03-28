@@ -50,7 +50,7 @@ go build -ldflags "-s -w" -gcflags="all=-trimpath=${PWD}" -asmflags="all=-trimpa
 
 ## 升级
 
-![free-pic](./images/33.png)
+![free-pic](./images/331.png)
 
 ![free-pic](./images/44.png)
 

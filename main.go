@@ -86,9 +86,7 @@ func main() {
 			//fmt.Println("exit thorium fail")
 		}
 
-		log.Println(13213, service.DownloadableVersion)
-
-		fmt.Printf("Downloadable version ..." + "\n")
+		fmt.Printf(language.LanguageMap[_config.Lang]["select_version"] + "\n")
 		//c := make(map[int]string)
 		for _, m := range service.DownloadableVersion {
 			for key, value := range m {
@@ -99,7 +97,6 @@ func main() {
 		var (
 			selectVersion string
 		)
-		fmt.Printf("请选择要下载的版本，输入对应的数字即可")
 
 		fmt.Scanln(&selectVersion)
 		fmt.Printf(language.LanguageMap[_config.Lang]["input"] + "：" + selectVersion + "\n")
@@ -110,6 +107,11 @@ func main() {
 				chromeFileName = value
 				break
 			}
+		}
+
+		if chromeFileName == "" {
+			fmt.Printf(language.LanguageMap[_config.Lang]["not_found_version"] + "\n")
+			return
 		}
 
 		fmt.Printf(language.LanguageMap[_config.Lang]["update_ing"] + "\n")
