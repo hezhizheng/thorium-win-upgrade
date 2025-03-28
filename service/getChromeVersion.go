@@ -119,7 +119,6 @@ func GetLatestVersionNameNext(tag string) (string, string) {
 	})
 
 	aIndex := 1
-	log.Println("Downloadable version...")
 	c.OnHTML("a", func(e *colly.HTMLElement) {
 		// 获取 <a> 标签的 href 属性
 		href := e.Attr("href")
