@@ -94,24 +94,26 @@ func main() {
 			}
 		}
 
-		var (
-			selectVersion string
-		)
-
-		fmt.Scanln(&selectVersion)
-		fmt.Printf(language.LanguageMap[_config.Lang]["input"] + "：" + selectVersion + "\n")
-		for _, m := range service.DownloadableVersion {
-			intSelectVersion, _ := strconv.Atoi(selectVersion)
-			value, exists := m[intSelectVersion]
-			if exists {
-				chromeFileName = value
-				break
-			}
-		}
-
+		// chromeFileName 为空 则让用户自己选择指定版本下载
 		if chromeFileName == "" {
-			fmt.Printf(language.LanguageMap[_config.Lang]["not_found_version"] + "\n")
-			return
+			var (
+				selectVersion string
+			)
+
+			fmt.Scanln(&selectVersion)
+			fmt.Printf(language.LanguageMap[_config.Lang]["input"] + "：" + selectVersion + "\n")
+			for _, m := range service.DownloadableVersion {
+				intSelectVersion, _ := strconv.Atoi(selectVersion)
+				value, exists := m[intSelectVersion]
+				if exists {
+					chromeFileName = value
+					break
+				}
+			}
+			if chromeFileName == "" {
+				fmt.Printf(language.LanguageMap[_config.Lang]["not_found_version"] + "\n")
+				return
+			}
 		}
 
 		fmt.Printf(language.LanguageMap[_config.Lang]["update_ing"] + "\n")

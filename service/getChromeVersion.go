@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 	"strings"
+	"thorium-win-upgrade/service/helper"
 )
 
 const DownloadHost = "https://github.com"
@@ -118,17 +119,32 @@ func GetLatestVersionNameNext(tag string) (string, string) {
 		//log.Println(string(resp.Body))
 	})
 
+	vType := viper.GetString(`app.type`)
+	vTypes := []string{"AVX2", "AVX", "SSE3", "SSE4"}
+	isSpecify := false
+
+	if vType != "" && helper.StringInSlice(vType, vTypes) {
+		isSpecify = true
+	}
+
 	aIndex := 1
 	c.OnHTML("a", func(e *colly.HTMLElement) {
 		// 获取 <a> 标签的 href 属性
 		href := e.Attr("href")
-		if strings.Contains(href, ".zip") && !strings.Contains(href, "tag") && !strings.Contains(href, "templates") {
-			//log.Println(href)
-			myMap := map[int]string{
-				aIndex: href,
+		if !isSpecify {
+			if strings.Contains(href, ".zip") && !strings.Contains(href, "tag") && !strings.Contains(href, "templates") {
+				//log.Println(href)
+				myMap := map[int]string{
+					aIndex: href,
+				}
+				DownloadableVersion = append(DownloadableVersion, myMap)
+				aIndex++
 			}
-			DownloadableVersion = append(DownloadableVersion, myMap)
-			aIndex++
+		} else {
+			if strings.Contains(href, ".zip") && !strings.Contains(href, "tag") &&
+				!strings.Contains(href, "templates") && strings.Contains(href, vType) {
+				fileName = href
+			}
 		}
 	})
 

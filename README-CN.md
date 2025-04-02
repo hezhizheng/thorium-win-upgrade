@@ -29,11 +29,13 @@
   "app": {
     "local_chrome_path": "D:\\test1107\\thorium"
     ,"proxy_url": ""
+    ,"type": ""
     ,"lang": "zh-CN"
   }
 }
 - proxy_url： 下载代理，检查最新版本跟下载可能需要翻墙，如程序有错误抛出，请尝试使用代理(http://127.0.0.1:7890)解决(不使用代理则无需配置该项，或者设置为空字符串)。
 - local_chrome_path：本地 thorium 的安装路径
+- type：指定你要下载的版本类型，支持 "AVX2"、"AVX" 、"SSE3"、"SSE4"，如果设置程序会自动下载对应的版本类型，为空则程序运行时会提示你选择对应的类型下载
 - lang：支持语言 zh-CN or en-US
 ```
 

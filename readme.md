@@ -33,11 +33,13 @@ Then local_chrome_path is defined as D:\test1107\thorium. as follows:
   "app": {
     "local_chrome_path": "D:\\test1107\\thorium"
     ,"proxy_url": ""
+    ,"type": ""
     ,"lang": "en-US"
   }
 }
 - proxy_url： Download the proxy. Check the latest version and download. You may need to bypass the firewall. If the program throws an error, please try to use the proxy (http://127.0.0.1:7890) to solve the problem. (If you do not use a proxy, you do not need to configure this item, or set it to empty. string).
 - local_chrome_path：Local thorium installation path
+- type：specifies the version type you want to download, supporting "AVX2", "AVX", "SSE3", or "SSE4". If this parameter is set, the program will automatically download the corresponding version type. If left empty, the program will prompt you to select the appropriate type to download when it runs.
 - lang：Supported languages zh-CN or en-US
 ```
 
