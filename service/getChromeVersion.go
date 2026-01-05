@@ -173,6 +173,10 @@ func GetLatestVersionNameNext(tag string) (string, string) {
 	}
 	c.Wait()
 
-	cVersion = strings.Split(tag, "M")[1]
+	if strings.HasPrefix(tag, "M") {
+		cVersion = strings.Split(tag, "M")[1]
+	} else {
+		cVersion = tag
+	}
 	return fileName, cVersion
 }
